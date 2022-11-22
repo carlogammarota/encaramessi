@@ -6,7 +6,7 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "yarn build"
   },
   "dependencies": {
     "core-js": "^3.25.3",
@@ -18,5 +18,9 @@
   "devDependencies": {
     "eslint-config-prettier": "^8.5.0",
     "prettier": "^2.7.1"
-  }
+  },
+  "main": "index.js",
+  "repository": "git@github.com:carlogammarota/encaramessi.git",
+  "author": "Carlo Gammarota <carlo.gammarota@gmail.com>",
+  "license": "MIT"
 }
