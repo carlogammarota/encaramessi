@@ -1,6 +1,6 @@
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
-  ssr: false,
+  ssr: true,
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -21,9 +21,13 @@ export default {
   css: [
     'main.css'
   ],
+  script: [
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    { src: "~/feathers.js", mode: "client" },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -32,6 +36,7 @@ export default {
   buildModules: [
     '@nuxt/postcss8',
   ],
+  // modules: ["@nuxtjs/axios"],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   // modules: ['@nuxtjs/tailwindcss'],

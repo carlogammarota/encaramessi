@@ -1,11 +1,13 @@
 <template>
 
 <main>
-
+    {{test}}
     <section class="bg-white dark:bg-gray-900">
     <div class="container mx-auto px-6 py-10">
+        
         <h1 class="text-center text-3xl font-semibold capitalize text-gray-800 dark:text-white lg:text-4xl">
             <a href="https://instagram.com/aura.productora">@aura.productora</a>
+            #Radio Aura
         </h1>
         <br>
         <h1 class="text-center text-3xl font-semibold capitalize text-gray-800 dark:text-white lg:text-4xl">Argentina vs Mexico</h1>
@@ -17,8 +19,8 @@
             <video width="100%" height="100%" controls>
                 <source src="http://64.227.76.217:8080/hls/1234.m3u8" type="application/x-mpegURL">
             </video>
-            <h2 class="mt-4 text-2xl font-semibold capitalize text-gray-800 dark:text-white">Best website collections</h2>
-            <p class="mt-2 text-lg uppercase tracking-wider text-blue-500 dark:text-blue-400">Website</p>
+            <h2 class="mt-4 text-2xl font-semibold capitalize text-gray-800 dark:text-white">Argentina vs Mexico</h2>
+            <p class="mt-2 text-lg uppercase tracking-wider text-blue-500 dark:text-blue-400">Encara Messi App by <a href="https://instagram.com/aura.productora" class="hover:text-red-300">@aura.productora</a></p>
         </div>
 
         <!-- <div>
@@ -56,76 +58,45 @@
 
    
 
-    <section class="bg-white dark:bg-gray-900">
-    <div class="container mx-auto max-w-4xl px-6 py-10">
-        <h1 class="text-center text-4xl font-semibold text-gray-800 dark:text-white">Frequently asked questions</h1>
-
-        <div class="mt-12 space-y-8">
-        <div class="rounded-lg border-2 border-gray-100 dark:border-gray-700">
-            <button class="flex w-full items-center justify-between p-8">
-            <h1 class="font-semibold text-gray-700 dark:text-white">How i can play for my appoinment ?</h1>
-
-            <span class="rounded-full bg-gray-200 text-gray-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
-                </svg>
-            </span>
-            </button>
-
-            <hr class="border-gray-200 dark:border-gray-700" />
-
-            <p class="p-8 text-sm text-gray-500 dark:text-gray-300">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas eaque nobis, fugit odit omnis fugiat deleniti animi ab maxime cum laboriosam recusandae facere dolorum veniam quia pariatur obcaecati illo ducimus?</p>
+    <section class="bg-white dark:bg-gray-900 pb-24">
+        <div class="container mx-auto max-w-4xl px-6 py-5">
+            <h1 class="text-center text-4xl font-semibold text-gray-800 dark:text-white">Chat en vivo <div class="lds-hourglass h-2 w-2" v-if="loader"></div></h1>
+            <div class="mt-12 space-y-4 overflow-auto chat " ref="messagesContainer" >
+                <div v-for="item of data"  class="rounded-lg border-2 border-gray-100 dark:border-gray-700">
+                    <!-- {{item}} -->
+                    <div class="flex w-full items-center justify-between p-2">
+                        <p class="font-semibold text-gray-700 dark:text-white">
+                            <img src="~/assets/profile.png" class="w-8 float-left" alt="">
+                            <span class="text-white font-bold float-left my-1 ml-2">
+                                <span class="text-gray-400">{{item.nombre}}:</span>
+                                <span>{{item.data}}</span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+      
+            <div class="mt-6" v-if="message.nombre">
+                <!-- <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Escribe un comentario</label> -->
+                <input type="text" v-model="message.data" id="first_name" class="A focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Escribe un mensaje..." required>
+                <button v-if="message.data" @click="send()" ref="p" class="w-full py-2 my-4 font-bold bg-gray-50 border border-gray-300 text-gray-900 text-2xl rounded-lg">ENVIAR</button>
+            </div>
+            <div class="mt-12 space-y-4 overflow-auto chat " ref="messagesContainer" v-if="!message.nombre">
+                <div class="rounded-lg border-2 border-gray-100 dark:border-gray-700">
+                    <div>   
+                        <label for="search" class="mb-2 pl-4 text-sm font-medium text-gray-900 sr-only dark:text-white">Ingresa tu Nombre</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <!-- <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg> -->
+                                <img src="~/assets/profile.png" class="w-8 float-left pr-2" alt=""/>
+                            </div>
+                            <input type="search" id="search" v-model="setNameString" class="block w-full py-4 text-2xl text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 inputName" placeholder="Ingresa tu nombre" required>
+                            <button @click="setName()" type="submit" class="entrarAlChat text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 uppercase">Entrar al Chat</button>
+                        </div>
+                    </div>
+                </div> 
+            </div>
         </div>
-
-        <div class="rounded-lg border-2 border-gray-100 dark:border-gray-700">
-            <button class="flex w-full items-center justify-between p-8">
-            <h1 class="font-semibold text-gray-700 dark:text-white">Is the cost of the appoinment covered by private health insurance?</h1>
-
-            <span class="rounded-full bg-blue-500 text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
-            </span>
-            </button>
-        </div>
-
-        <div class="rounded-lg border-2 border-gray-100 dark:border-gray-700">
-            <button class="flex w-full items-center justify-between p-8">
-            <h1 class="font-semibold text-gray-700 dark:text-white">Do i need a referral?</h1>
-
-            <span class="rounded-full bg-blue-500 text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
-            </span>
-            </button>
-        </div>
-
-        <div class="rounded-lg border-2 border-gray-100 dark:border-gray-700">
-            <button class="flex w-full items-center justify-between p-8">
-            <h1 class="font-semibold text-gray-700 dark:text-white">What are your opening house?</h1>
-
-            <span class="rounded-full bg-blue-500 text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
-            </span>
-            </button>
-        </div>
-
-        <div class="rounded-lg border-2 border-gray-100 dark:border-gray-700">
-            <button class="flex w-full items-center justify-between p-8">
-            <h1 class="font-semibold text-gray-700 dark:text-white">What can i expect at my first consultation?</h1>
-
-            <span class="rounded-full bg-blue-500 text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
-            </span>
-            </button>
-        </div>
-        </div>
-    </div>
     </section>
 
     <section class="min-h-screen bg-gradient-to-r from-blue-600 via-blue-800 to-blue-900 dark:from-gray-700 dark:via-gray-800 dark:to-gray-900">
@@ -294,3 +265,198 @@
     </footer>
 </main>
 </template>
+<style>
+.chat {
+    max-height: 500px;
+}
+</style>
+<script>
+const feathers = require("~/feathers.js")
+// import '~messages';
+// import axios from "axios"
+// const feathers = require('~/feathers.js');
+//  import axios from 'axios'
+//  const axios = require("axios")
+// import axios from 'axios';
+export default {
+    // asyncData ({ params }) {
+    //     return axios.get("http://localhost:3030/messages")
+    //     .then((res) => {
+    //         console.log("test");
+    //         return { test: "res.data" }
+    //         // console.log("res", res)
+    //         // this.loader = true;
+    //         // let mensajes = await feathers.default.messages.find();
+    //         // console.log("MENSAJES", mensajes)
+    //         // this.data = mensajes.data;
+    //         // this.loader = false;
+    //         // console.log("data", this.data);
+    //     })
+    // },
+    // async fetch() {
+    //     this.test = await axios.$get("http://localhost:3030/messages")
+    //     console.log("posts", this.test)
+    // },
+    data(){
+        return {
+            test: [],
+            message: {
+                nombre: "",
+                data: "",
+            },
+            messagesArray: [
+                {
+                    nombre: "Roberto",
+                    data: "Hola!, ¿ como estan ?"
+                },
+                {
+                    nombre: "Jorge",
+                    data: "Bien!, ¿ y vos como estas ?"
+                },
+                {
+                    nombre: "Luis",
+                    data: "Vamos Argentina!"
+                },
+                {
+                    nombre: "Alberto",
+                    data: "Que bien que estamos jugando!"
+                },
+                {
+                    nombre: "Jose",
+                    data: "Que vuelva Funes Mori lo necesitamos"
+                },
+            ], 
+            data:[],
+            loader: false,
+            setNameString: ""
+        }
+    },
+    async mounted(){
+        var audio = new Audio('~/assets/file.mp3'); // path to file
+        audio.play();
+
+
+        
+        // let data = await $messages.default.messages.find();
+        // console.log($messages)
+
+        this.storeGetName();
+        this.getMessages();
+        this.timing();
+
+
+    },
+    methods: {
+        //Esta funcion guarda el nombre en localstorage
+        storeName(name) {
+            if(process.client) {
+                localStorage.setItem("name", name)
+            }
+        },
+        //Esta funcion trae el nombre si esta en localstorage
+        storeGetName() {
+            if(process.client) {
+                let name = localStorage.getItem("name");
+                if (name) {
+                    console.log("Hay Nombre!", name)
+                    this.message.nombre = name;
+                }
+            }
+        },
+        setName(){
+            if(this.setNameString){
+                this.message.nombre = this.setNameString;
+                this.storeName(this.message.nombre);
+            }
+        },
+        timing(){
+            setInterval(() => {
+                console.log("Actualizando");
+                this.getMessages();
+            }, 5000);
+        },
+        async getMessages(){
+            //Feathers
+            this.loader = true;
+            let mensajes = await feathers.default.messages.find();
+            console.log("MENSAJES", mensajes)
+            this.data = mensajes.data;
+            this.loader = false;
+            console.log("data", this.data);
+        },
+        send(){
+          
+            console.log(this.messagesArray)
+
+            //Feathers
+            this.loader = true;
+            feathers.default.messages.create(this.message).then(data => {
+                this.loader = false;
+                console.log("Sucess!", data);
+                this.message.data = "";
+                this.getMessages();
+			}).catch(err => {
+			 	console.log("Error!", err)
+			});
+        },
+        scrollToElement() {
+            
+            // const el = this.$refs.messagesContainer;
+
+            // if (el) {
+                // Use el.scrollIntoView() to instantly scroll to the element
+                // el.scrollIntoView({behavior: 'smooth'});
+            // }
+        }
+    }
+}
+</script>
+<style>
+.lds-hourglass {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  transform: scale(0.6,0.6);
+  margin-top: -10px;
+    float: right;
+    right: 131px;
+    position: absolute;
+}
+.lds-hourglass:after {
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  width: 0;
+  height: 0;
+  margin: 2px;
+  box-sizing: border-box;
+  border: 32px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-hourglass 1.2s infinite;
+}
+@keyframes lds-hourglass {
+  0% {
+    transform: rotate(0);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+  50% {
+    transform: rotate(900deg);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  100% {
+    transform: rotate(1800deg);
+  }
+}
+
+.inputName{
+    padding-left: 50px;
+    padding-top: 14px;
+}
+
+.entrarAlChat{
+    font-size: 20px;
+    padding: 12px;
+}
+
+</style>
