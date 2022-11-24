@@ -61,7 +61,7 @@
     <section class="bg-white dark:bg-gray-900 pb-24">
         <div class="container mx-auto max-w-4xl px-6 py-5">
             <h1 class="text-center text-4xl font-semibold text-gray-800 dark:text-white">Chat en vivo <div class="lds-hourglass h-2 w-2" v-if="loader"></div></h1>
-            <div class="mt-12 space-y-4 overflow-auto chat " ref="messagesContainer" >
+            <div class="mt-12 space-y-4 overflow-auto chat " id="chat" ref="messagesContainer" >
                 <div v-for="item of data"  class="rounded-lg border-2 border-gray-100 dark:border-gray-700">
                     <!-- {{item}} -->
                     <div class="flex w-full items-center justify-between p-2">
@@ -81,7 +81,7 @@
                 <input type="text" v-model="message.data" id="first_name" class="A focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Escribe un mensaje..." required>
                 <button v-if="message.data" @click="send()" ref="p" class="w-full py-2 my-4 font-bold bg-gray-50 border border-gray-300 text-gray-900 text-2xl rounded-lg">ENVIAR</button>
             </div>
-            <div class="mt-12 space-y-4 overflow-auto chat " ref="messagesContainer" v-if="!message.nombre">
+            <div class="mt-12 space-y-4 overflow-auto chat messagesContainer" ref="messagesContainer" v-if="!message.nombre">
                 <div class="rounded-lg border-2 border-gray-100 dark:border-gray-700">
                     <div>   
                         <label for="search" class="mb-2 pl-4 text-sm font-medium text-gray-900 sr-only dark:text-white">Ingresa tu Nombre</label>
@@ -343,7 +343,7 @@ export default {
         this.storeGetName();
         this.getMessages();
         this.timing();
-
+        this.scrollToElement();
 
     },
     methods: {
@@ -373,9 +373,12 @@ export default {
             setInterval(() => {
                 console.log("Actualizando");
                 this.getMessages();
+                this.scrollToElement();
+
             }, 5000);
         },
         async getMessages(){
+            
             //Feathers
             this.loader = true;
             let mensajes = await feathers.default.messages.find({
@@ -386,13 +389,15 @@ export default {
             });
             console.log("MENSAJES", mensajes)
             this.data = mensajes.data;
+            this.scrollToElement();
             this.loader = false;
             console.log("data", this.data);
+            
         },
         send(){
           
             console.log(this.messagesArray)
-
+            this.scrollToElement();
             //Feathers
             this.loader = true;
             feathers.default.messages.create(this.message).then(data => {
@@ -405,13 +410,9 @@ export default {
 			});
         },
         scrollToElement() {
-            
-            // const el = this.$refs.messagesContainer;
-
-            // if (el) {
-                // Use el.scrollIntoView() to instantly scroll to the element
-                // el.scrollIntoView({behavior: 'smooth'});
-            // }
+            const el = document.getElementById("chat")
+            console.log("Scroll", el)
+            el.scroll(0, 9999999);
         }
     }
 }
