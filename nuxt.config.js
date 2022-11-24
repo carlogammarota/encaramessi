@@ -22,6 +22,7 @@ export default {
     script: [
       {
         src: "~/plugins/videojs-contrib-hls.js",
+        src: "~/plugins/gtag",
       },
     ],
   },
@@ -49,8 +50,10 @@ export default {
     ['@nuxtjs/google-analytics', {
       id: 'G-VJ8N8WV0RP'
     }]
-    
   ],
+  googleAnalytics: {
+    id: 'G-VJ8N8WV0RP'
+  }
   // 'google-gtag':{
   //   id: 'G-VJ8N8WV0RP', // required
   //   config:{
