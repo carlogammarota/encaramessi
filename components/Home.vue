@@ -16,9 +16,37 @@
 
         <div class="mt-8 grid grid-cols-1 gap-8 md:grid-cols-1 xl:mt-12 xl:grid-cols-1 xl:gap-12">
         <div>
-            <video width="100%" height="100%" controls>
+            <!-- <video width="100%" height="100%" controls>
                 <source src="http://64.227.76.217:8080/hls/1234.m3u8" type="application/x-mpegURL">
+                
+            </video> -->
+            <!-- <video id=example-video width=960 height=540 class="video-js vjs-default-skin" controls>
+            <source
+                src="http://64.227.76.217:8080/hls/1234.m3u8"
+                type="application/x-mpegURL">
+            </video> -->
+            <video
+                controls
+                id="vid1"
+                class="video-js w-full video-stream"
+                preload="auto"
+                poster="@/assets/encara-messi.jpeg"
+                data-setup="{}"
+            >
+            <source
+                src="http://64.227.76.217:8080/hls/1234.m3u8"
+                type="application/x-mpegURL"
+            />
+            <p class="vjs-no-js">
+                To view this video please enable JavaScript, and consider upgrading to a
+                web browser that
+                <a href="http://videojs.com/html5-video-support/" target="_blank">
+                supports HTML5 video
+                </a>
+            </p>
             </video>
+            <!-- <player></player>  -->
+            <!-- <video-player src="http://64.227.76.217:8080/hls/1234.m3u8" type="application/x-mpegURL"></video-player> -->
             <h2 class="mt-4 text-2xl font-semibold capitalize text-gray-800 dark:text-white">Argentina vs Mexico</h2>
             <p class="mt-2 text-lg uppercase tracking-wider text-blue-500 dark:text-blue-400">Encara Messi App by <a href="https://instagram.com/aura.productora" class="hover:text-red-300">@aura.productora</a></p>
         </div>
@@ -99,7 +127,7 @@
         </div>
     </section>
 
-    <section class="min-h-screen bg-gradient-to-r from-blue-600 via-blue-800 to-blue-900 dark:from-gray-700 dark:via-gray-800 dark:to-gray-900">
+    <!-- <section class="min-h-screen bg-gradient-to-r from-blue-600 via-blue-800 to-blue-900 dark:from-gray-700 dark:via-gray-800 dark:to-gray-900">
     <div class="container mx-auto flex min-h-screen flex-col px-6 py-12">
         <div class="flex-1 lg:-mx-6 lg:flex lg:items-center">
         <div class="text-white lg:mx-6 lg:w-1/2">
@@ -193,7 +221,7 @@
         </div>
         </div>
     </div>
-    </section>
+    </section> -->
 
     <footer class="bg-white dark:bg-gray-900">
     <div class="container mx-auto px-6 py-12">
@@ -269,9 +297,24 @@
 .chat {
     max-height: 500px;
 }
+.video-stream {
+    width: 100%;
+    height: 65vh;
+}
 </style>
 <script>
-const feathers = require("~/feathers.js")
+// import VideoPlayer from "nuxt-video-player";
+// require styles
+// import 'video.js/dist/video-js.css'
+
+// import { videoPlayer } from 'vue-video-player'
+
+
+const feathers = require("~/feathers.js");
+// var player = videojs('example-video');
+// player.play();
+// import { gtag, install } from 'ga-gtag';
+// install('G-VJ8N8WV0RP'); 
 // import '~messages';
 // import axios from "axios"
 // const feathers = require('~/feathers.js');
@@ -345,6 +388,10 @@ export default {
         this.timing();
         this.scrollToElement();
 
+    },
+    components: {
+        // VideoPlayer
+        // videoPlayer
     },
     methods: {
         //Esta funcion guarda el nombre en localstorage

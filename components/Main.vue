@@ -6,6 +6,7 @@
         </video> -->
         <!-- <client-only placeholder="Loading..."> -->
             <Home></Home>
+            <!-- <player></player> -->
       <!-- <comments /> -->
     <!-- </client-only> -->
         
