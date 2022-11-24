@@ -378,7 +378,12 @@ export default {
         async getMessages(){
             //Feathers
             this.loader = true;
-            let mensajes = await feathers.default.messages.find();
+            let mensajes = await feathers.default.messages.find({
+                query: {
+                    $limit: 500,
+                },
+                
+            });
             console.log("MENSAJES", mensajes)
             this.data = mensajes.data;
             this.loader = false;

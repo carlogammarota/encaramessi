@@ -35,7 +35,11 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxt/postcss8',
+    '@nuxtjs/google-analytics'
   ],
+  googleAnalytics: {
+    id: 'UA-XXX-X'
+  },
   // modules: ["@nuxtjs/axios"],
 
   // Modules: https://go.nuxtjs.dev/config-modules
