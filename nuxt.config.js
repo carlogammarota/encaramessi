@@ -53,7 +53,7 @@ export default {
   ],
   googleAnalytics: {
     id: 'G-VJ8N8WV0RP'
-  }
+  },
   // 'google-gtag':{
   //   id: 'G-VJ8N8WV0RP', // required
   //   config:{
