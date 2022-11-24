@@ -38,7 +38,7 @@ export default {
     '@nuxtjs/google-analytics'
   ],
   googleAnalytics: {
-    id: 'UA-XXX-X'
+    id: 'G-VJ8N8WV0RP'
   },
   // modules: ["@nuxtjs/axios"],
 
